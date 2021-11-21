@@ -1,10 +1,10 @@
+// ---------- STATE VARIABLES ----------
 let display = document.querySelector("#display");
-
 let operand = "";
 let num1 = "";
 let num2 = "";
 
-// buttons
+// ---------- DOM ELEMENTS ----------
 document.querySelector("#zero").addEventListener("click", numberPressed);
 document.querySelector("#one").addEventListener("click", numberPressed);
 document.querySelector("#two").addEventListener("click", numberPressed);
@@ -28,17 +28,20 @@ document.querySelector("#clear").addEventListener("click", clear);
 // ---------- NUMBERS ----------
 function numberPressed(e) {
   if (operand === "") {
-    // incomplete logic
-    if (num1.substring(-1) === ".") {
-      // need logic for preventing multiple decimal points after a number; do not want 9.. + 3..
+    if (e.target.textContent === "." && num1.includes(".")) {
+      return;
+    } else {
+      num1 += e.target.textContent;
+      display.textContent = num1;
     }
-
-    num1 += e.target.textContent;
-    display.textContent = num1;
   } else {
-    display.textContent = ""; // reset display
-    num2 += e.target.textContent;
-    display.textContent = num2;
+    if (e.target.textContent === "." && num2.includes(".")) {
+      return;
+    } else {
+      display.textContent = "";
+      num2 += e.target.textContent;
+      display.textContent = num2;
+    }
   }
 
   console.log("num1 = " + num1);
@@ -47,11 +50,9 @@ function numberPressed(e) {
 
 // ---------- OPERANDS ----------
 function operandPressed(e) {
-  // check if user entered a number first before selecting an operand
   if (num1 === "") {
     alert("Please select a number");
   } else {
-    // if user clicks the same operand, toggle it off
     if (e.target.textContent === operand && operand !== "") {
       operand = "";
     } else {
@@ -62,11 +63,11 @@ function operandPressed(e) {
   console.log("Current operand: " + operand);
 }
 
-// ---------- CALCULATE ----------
+// ---------- CALCULATION ----------
 function equalsPressed() {
   let result = calculate(num1, num2, operand);
-  num1 = result; // update value of num1
-  num2 = ""; // reset num2
+  num1 = result;
+  num2 = "";
   operand = "";
   display.textContent = result;
 }
@@ -84,14 +85,7 @@ function calculate(num1, num2, operand) {
   }
 }
 
-function displayValue(num) {
-  if (display.textContent !== 0) {
-    display.textContent = num;
-  } else {
-    display.textContent += num;
-  }
-}
-
+// ---------- RESET ----------
 function clear() {
   display.textContent = "0";
   num1 = "";
