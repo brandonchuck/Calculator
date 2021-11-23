@@ -6,7 +6,8 @@ let num1 = "";
 let num2 = "";
 let memory = "";
 
-// ---------- DOM ELEMENTS ----------
+// ----- DOM ELEMENTS -----
+// Numbers
 document.querySelector("#zero").addEventListener("click", numberPressed);
 document.querySelector("#one").addEventListener("click", numberPressed);
 document.querySelector("#two").addEventListener("click", numberPressed);
@@ -19,90 +20,117 @@ document.querySelector("#eight").addEventListener("click", numberPressed);
 document.querySelector("#nine").addEventListener("click", numberPressed);
 document.querySelector("#decimal").addEventListener("click", numberPressed);
 
+// Operands
 document.querySelector("#add").addEventListener("click", operandPressed);
 document.querySelector("#subtract").addEventListener("click", operandPressed);
 document.querySelector("#divide").addEventListener("click", operandPressed);
 document.querySelector("#multiply").addEventListener("click", operandPressed);
 document.querySelector("#inverse").addEventListener("click", operandPressed);
-document
-  .querySelector("#square-root")
-  .addEventListener("click", operandPressed);
-document.querySelector("#equals").addEventListener("click", equalsPressed);
+document.querySelector("#square-root").addEventListener("click", operandPressed);
 
+// Memory
 document.querySelector("#memory-clear").addEventListener("click", memoryClear);
-
-document
-  .querySelector("#memory-recall")
-  .addEventListener("click", memoryRecall);
-
-document
-  .querySelector("#memory-add")
-  .addEventListener("click", memoryAddSubtract);
-document
-  .querySelector("#memory-subtract")
-  .addEventListener("click", memoryAddSubtract);
-
+document.querySelector("#memory-recall").addEventListener("click", memoryRecall);
+document.querySelector("#memory-add").addEventListener("click", memoryAddSubtract);
+document.querySelector("#memory-subtract").addEventListener("click", memoryAddSubtract);
 document.querySelector("#memory-store").addEventListener("click", memoryStore);
 
+// Equals & Clear
+document.querySelector("#equals").addEventListener("click", equalsPressed);
 document.querySelector("#clear").addEventListener("click", clear);
+
 
 // ---------- NUMBERS ----------
 function numberPressed(e) {
-  // operand NOT selected
-  if (operand === "") {
-    // decimal pressed
-    if (e.target.textContent === ".") {
-      // check if num1 contains "." -- can only have 1 decimal point
-      if (num1.includes(".")) {
-        return;
-      } else {
-        num1 += e.target.textContent;
-      }
-    }
-    // number pressed
-    /*
-      Current Bug:
-      Expected: 3+5=8 --> press 4 --> num1 set to 4 and displays 4
-      Actual: 3+5=8 --> press 4 --> num1 set to 84 and displays 84, not 4
-      */
-    else {
-      num1 += e.target.textContent;
-    }
-    display.textContent = num1;
+
+  if (e.target.textContent === '.' && display.textContent.includes('.')) {
+    return;
   }
 
-  // operand selected
-  else {
-    if (e.target.textContent === "." && num2.includes(".")) {
-      return;
-    } else {
-      display.textContent = "";
-      num2 += e.target.textContent;
-      display.textContent = num2;
-    }
+  // -- This logic doesn't allow for a new calculation
+  if (operand === '') {
+    num1 += e.target.textContent
+    display.textContent = num1
+  } else {
+    num2 += e.target.textContent
+    display.textContent = num2
   }
+
+  // -- This logic doesn't allow for decimal points
+  // if (operand === '') {
+  //   if (num2 === ""){
+  //     num1 = e.target.textContent;
+  //     display.textContent = num1;
+  //   } else {
+  //     num1 += e.target.textContent
+  //     display.textContent = num1
+  //   }
+  // } else {
+  //   num2 += e.target.textContent
+  //   display.textContent = num2
+  // }
 
   console.log("num1 = " + num1);
   console.log("num2 = " + num2);
 }
 
+// run calc under conditions:
+// get num1 --> get operand --> get num2 --> hit equals (run calculate) --> update num1
+// get num1 --> get operand --> get num2 --> get operand (run calculate) --> update num1
+
 // ---------- OPERANDS ----------
+// Purpose: Set an operand if num2 !== "", OR execute a calculation using num1 and num2, then set operand to e.target.textcontent
 function operandPressed(e) {
   if (num1 === "") {
     alert("Please enter a number.");
+  
+  // num1 !== ""
   } else {
-    if (e.target.textContent === operand && operand !== "") {
-      operand = "";
+    if (num2 !== ""){
+      let result = calculate(num1, num2, operand);
+      num1 = result;
+      operand = e.target.textContent;
+      display.textContent = result;
+      num2 = "";
+      console.log("num1 = " + num1);
+      console.log("num2 = " + num2);
     } else {
       operand = e.target.textContent;
     }
+  
+    // Testing: toggle operand on/off
+    // if (e.target.textContent === operand && operand !== "") {
+    //   operand = "";
+    // } else {
+    //   operand = e.target.textContent;
+    // } 
   }
 
   console.log("Current operand: " + operand);
 }
 
+
+
 // ---------- CALCULATION ----------
 function equalsPressed() {
+
+    let result = calculate(num1, num2, operand);
+  
+    // if I press an operand after pressing =, then num1 = result -- continuous calculation
+    // if I press number after pressing =, then num1 = ""; -- reset calculation
+
+    num1 = result;
+    num2 = "";
+    operand = ""; // always reset operand to "", if user presses an operand after pressing equals, then num 1 is reset
+    display.textContent = result;
+
+    console.log("num1 = " + num1);
+    console.log("num2 = " + num2);
+    console.log("Current operand: " + operand);
+    console.log("Current memory: " + memory);
+  
+
+
   /* 
     *** This functionality may be unecessary... ***
     Current Bug:
@@ -130,17 +158,7 @@ function equalsPressed() {
   // display.textContent = result;
   // console.log(result);
 
-  // -- orignal logic --
-  let result = calculate(num1, num2, operand);
-  num1 = result;
-  num2 = "";
-  operand = "";
-  display.textContent = result;
 
-  console.log("num1 = " + num1);
-  console.log("num2 = " + num2);
-  console.log("Current operand: " + operand);
-  console.log("Current memory: " + memory);
 }
 
 function calculate(num1, num2, operand) {
