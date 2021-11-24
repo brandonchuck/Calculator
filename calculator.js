@@ -26,67 +26,52 @@ document.querySelector("#subtract").addEventListener("click", operandPressed);
 document.querySelector("#divide").addEventListener("click", operandPressed);
 document.querySelector("#multiply").addEventListener("click", operandPressed);
 document.querySelector("#inverse").addEventListener("click", operandPressed);
-document.querySelector("#square-root").addEventListener("click", operandPressed);
+document
+  .querySelector("#square-root")
+  .addEventListener("click", operandPressed);
 
 // Memory
 document.querySelector("#memory-clear").addEventListener("click", memoryClear);
-document.querySelector("#memory-recall").addEventListener("click", memoryRecall);
-document.querySelector("#memory-add").addEventListener("click", memoryAddSubtract);
-document.querySelector("#memory-subtract").addEventListener("click", memoryAddSubtract);
+document
+  .querySelector("#memory-recall")
+  .addEventListener("click", memoryRecall);
+document
+  .querySelector("#memory-add")
+  .addEventListener("click", memoryAddSubtract);
+document
+  .querySelector("#memory-subtract")
+  .addEventListener("click", memoryAddSubtract);
 document.querySelector("#memory-store").addEventListener("click", memoryStore);
 
-// Equals & Clear
+// Misc.
+document.querySelector("#sign").addEventListener("click", changeSign);
 document.querySelector("#equals").addEventListener("click", equalsPressed);
 document.querySelector("#clear").addEventListener("click", clear);
 
-
 // ---------- NUMBERS ----------
 function numberPressed(e) {
-
-  if (e.target.textContent === '.' && display.textContent.includes('.')) {
+  if (e.target.textContent === "." && display.textContent.includes(".")) {
     return;
   }
 
-  // -- This logic doesn't allow for a new calculation
-  if (operand === '') {
-    num1 += e.target.textContent
-    display.textContent = num1
+  if (operand === "") {
+    num1 += e.target.textContent;
+    display.textContent = num1;
   } else {
-    num2 += e.target.textContent
-    display.textContent = num2
+    num2 += e.target.textContent;
+    display.textContent = num2;
   }
-
-  // -- This logic doesn't allow for decimal points
-  // if (operand === '') {
-  //   if (num2 === ""){
-  //     num1 = e.target.textContent;
-  //     display.textContent = num1;
-  //   } else {
-  //     num1 += e.target.textContent
-  //     display.textContent = num1
-  //   }
-  // } else {
-  //   num2 += e.target.textContent
-  //   display.textContent = num2
-  // }
 
   console.log("num1 = " + num1);
   console.log("num2 = " + num2);
 }
 
-// run calc under conditions:
-// get num1 --> get operand --> get num2 --> hit equals (run calculate) --> update num1
-// get num1 --> get operand --> get num2 --> get operand (run calculate) --> update num1
-
 // ---------- OPERANDS ----------
-// Purpose: Set an operand if num2 !== "", OR execute a calculation using num1 and num2, then set operand to e.target.textcontent
 function operandPressed(e) {
   if (num1 === "") {
     alert("Please enter a number.");
-  
-  // num1 !== ""
   } else {
-    if (num2 !== ""){
+    if (num2 !== "") {
       let result = calculate(num1, num2, operand);
       num1 = result;
       operand = e.target.textContent;
@@ -97,39 +82,23 @@ function operandPressed(e) {
     } else {
       operand = e.target.textContent;
     }
-  
-    // Testing: toggle operand on/off
-    // if (e.target.textContent === operand && operand !== "") {
-    //   operand = "";
-    // } else {
-    //   operand = e.target.textContent;
-    // } 
   }
 
   console.log("Current operand: " + operand);
 }
 
-
-
 // ---------- CALCULATION ----------
 function equalsPressed() {
+  let result = calculate(num1, num2, operand);
+  num1 = "";
+  num2 = "";
+  operand = "";
+  display.textContent = result;
 
-    let result = calculate(num1, num2, operand);
-  
-    // if I press an operand after pressing =, then num1 = result -- continuous calculation
-    // if I press number after pressing =, then num1 = ""; -- reset calculation
-
-    num1 = result;
-    num2 = "";
-    operand = ""; // always reset operand to "", if user presses an operand after pressing equals, then num 1 is reset
-    display.textContent = result;
-
-    console.log("num1 = " + num1);
-    console.log("num2 = " + num2);
-    console.log("Current operand: " + operand);
-    console.log("Current memory: " + memory);
-  
-
+  console.log("num1 = " + num1);
+  console.log("num2 = " + num2);
+  console.log("Current operand: " + operand);
+  console.log("Current memory: " + memory);
 
   /* 
     *** This functionality may be unecessary... ***
@@ -157,8 +126,6 @@ function equalsPressed() {
   // operand = "";
   // display.textContent = result;
   // console.log(result);
-
-
 }
 
 function calculate(num1, num2, operand) {
@@ -178,27 +145,57 @@ function calculate(num1, num2, operand) {
   }
 }
 
+function changeSign() {
+  if (num2 === "") {
+    num1 = num1.includes("-") ? num1.replace("-", "") : "-" + num1;
+    display.textContent = num1;
+  } else {
+    num2 = num2.includes("-") ? num2.replace("-", "") : "-" + num2;
+    display.textContent = num2;
+  }
+}
+
 // ---------- MEMORY FUNCTIONS ----------
 function memoryClear() {
   memory = "";
+  console.log("Current memory: " + memory);
 }
 
 function memoryRecall() {
   if (memory === "") {
     display.textContent = 0;
+    alert("Nothing stored in memory... enter a number then press MS to store");
+    return;
+  }
+
+  if (operand !== "") {
+    num2 = memory;
   } else {
     display.textContent = memory;
   }
+  console.log("num1 = " + num1);
+  console.log("num2 = " + num2);
   console.log("Current memory: " + memory);
 }
 
 function memoryAddSubtract(e) {
   if (memory !== "") {
-    op = e.target.textContent === "M+" ? "+" : "-";
-    let result = calculate(memory, num1, op);
+    let op = e.target.textContent === "M+" ? "+" : "-";
+    let result;
+
+    // cleaner way to write this logic?
+    if (num1 !== "" && num2 === "") {
+      result = calculate(memory, num1, op);
+      console.log("hi");
+    }
+
+    if (num2 !== "") {
+      result = calculate(memory, num2, op);
+      console.log("there");
+    }
+
     memory = result;
     console.log("Current memory: " + memory);
-    operand = "";
   } else {
     alert("Nothing stored in memory... enter a number then press MS to store.");
     return;
@@ -206,12 +203,29 @@ function memoryAddSubtract(e) {
 }
 
 function memoryStore() {
-  if (num1 !== "") {
-    memory = num1;
-    console.log("Current memory: " + memory);
-  } else {
+  if (num1 === "") {
     alert("Please enter a number, then click MS to store.");
   }
+
+  // cleaner way to write this logic?
+  // if num1 has been entered and user presses MS
+  if (num1 !== "" && num2 === "") {
+    memory = num1;
+    console.log("Current memory: " + memory);
+  }
+  // if user has entered num1 and num2 and wants to store num2 in memory
+  else if (num1 !== "" && num2 !== "") {
+    memory = num2;
+    console.log("Current memory: " + memory);
+  }
+
+  // -- original logic --
+  // if (num1 !== "") {
+  //   memory = num1;
+  //   console.log("Current memory: " + memory);
+  // } else {
+  //   alert("Please enter a number, then click MS to store.");
+  // }
 }
 
 // ---------- RESET ----------
