@@ -1,7 +1,6 @@
 // ---------- STATE VARIABLES ----------
 let display = document.querySelector("#display");
 let operand = "";
-// let lastOperand = ""; // testing with equalsPressed()
 let num1 = "";
 let num2 = "";
 let memory = "";
@@ -99,49 +98,30 @@ function equalsPressed() {
   console.log("num2 = " + num2);
   console.log("Current operand: " + operand);
   console.log("Current memory: " + memory);
-
-  /* 
-    *** This functionality may be unecessary... ***
-    Current Bug:
-    Actual: 3+5=8 --> press "+" --> press "=" --> num1 set to NaN, display shows NaN 
-    Expected: 3+5=8 --> press "+" --> press "=" --> num1 set to 16 
-  */
-  // let result;
-
-  // if (num2 === "") {
-  //   console.log(num1); // --> this is being set to undefined?
-  //   result = calculate(num1, num1, lastOperand); // calculate result using num1's val for num2
-
-  //   // to reach here, user must have pressed an operator and
-  // } else {
-  //   lastOperand = operand;
-  //   result = calculate(num1, num2, operand); // calculate result using user input;
-
-  //   console.log("\nLast operand: " + lastOperand);
-  //   console.log("Current operand: " + operand);
-  // }
-
-  // num1 = result;
-  // num2 = "";
-  // operand = "";
-  // display.textContent = result;
-  // console.log(result);
 }
 
-function calculate(num1, num2, operand) {
+function calculate(num_1, num_2, operand) {
+  if (num_1.includes(".") || num_2.includes(".")) {
+    num1 = parseFloat(parseFloat(num_1).toFixed(4));
+    num2 = parseFloat(parseFloat(num_2).toFixed(4));
+  } else {
+    num1 = parseFloat(num_1);
+    num2 = parseFloat(num_2);
+  }
+
   switch (operand) {
     case "+":
-      return (parseFloat(num1) + parseFloat(num2)).toFixed(4);
+      return num1 + num2;
     case "-":
-      return (parseFloat(num1) - parseFloat(num2)).toFixed(4);
+      return num1 - num2;
     case "*":
-      return (parseFloat(num1) * parseFloat(num2)).toFixed(4);
+      return num1 * num2;
     case "/":
-      return (parseFloat(num1) / parseFloat(num2)).toFixed(4);
+      return num1 / num2;
     case "sqrt":
-      return Math.sqrt(parseFloat(num1)).toFixed(4);
+      return Math.sqrt(num1).toFixed();
     case "1/x":
-      return (1 / parseFloat(num1).toPrecision(20)).toFixed(4);
+      return (1 / num1).toFixed(4);
   }
 }
 
