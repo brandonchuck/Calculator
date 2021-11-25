@@ -1,6 +1,8 @@
 body {
+  display: flex;
+  flex-direction: row;
   background-color: black;
-  margin-left: 500px;
+  justify-content: center;
 }
 table {
   border-style: none;
@@ -51,4 +53,8 @@ button {
 
 .toggle-on-off {
   background-color: red;
+}
+
+#title {
+  color: blue;
 }
