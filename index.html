@@ -8,53 +8,58 @@
     <title>Calculator</title>
   </head>
   <body>
-    <table class="table">
-      <thead>
-        <h2 id="title">Simple Calculator App</h2>
-        <tr>
-          <th id="display" colspan="5">0</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><button id="memory-clear">MC</button></td>
-          <td><button id="memory-recall">MR</button></td>
-          <td><button id="memory-add">M+</button></td>
-          <td><button id="memory-subtract">M-</button></td>
-          <td><button id="memory-store">MS</button></td>
-        </tr>
-        <tr>
-          <td><button id="seven">7</button></td>
-          <td><button id="eight">8</button></td>
-          <td><button id="nine">9</button></td>
-          <td><button id="multiply">*</button></td>
-          <td><button id="divide">/</button></td>
-        </tr>
+    <div class="container-title">
+      <h2 id="title">Simple Calculator App</h2>
+    </div>
 
-        <tr>
-          <td><button id="four">4</button></td>
-          <td><button id="five">5</button></td>
-          <td><button id="six">6</button></td>
-          <td><button id="add">+</button></td>
-          <td><button id="subtract">-</button></td>
-        </tr>
+    <div class="container-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th id="display" colspan="5">0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><button id="memory-clear">MC</button></td>
+            <td><button id="memory-recall">MR</button></td>
+            <td><button id="memory-add">M+</button></td>
+            <td><button id="memory-subtract">M-</button></td>
+            <td><button id="memory-store">MS</button></td>
+          </tr>
+          <tr>
+            <td><button id="seven">7</button></td>
+            <td><button id="eight">8</button></td>
+            <td><button id="nine">9</button></td>
+            <td><button id="multiply">*</button></td>
+            <td><button id="divide">/</button></td>
+          </tr>
 
-        <tr>
-          <td><button id="one">1</button></td>
-          <td><button id="two">2</button></td>
-          <td><button id="three">3</button></td>
-          <td><button id="inverse">1/x</button></td>
-          <td><button id="square-root">sqrt</button></td>
-        </tr>
-        <tr>
-          <td><button id="clear">C</button></td>
-          <td><button id="zero">0</button></td>
-          <td><button id="decimal">.</button></td>
-          <td><button id="sign">+/-</button></td>
-          <td><button id="equals">=</button></td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <td><button id="four">4</button></td>
+            <td><button id="five">5</button></td>
+            <td><button id="six">6</button></td>
+            <td><button id="add">+</button></td>
+            <td><button id="subtract">-</button></td>
+          </tr>
+
+          <tr>
+            <td><button id="one">1</button></td>
+            <td><button id="two">2</button></td>
+            <td><button id="three">3</button></td>
+            <td><button id="inverse">1/x</button></td>
+            <td><button id="square-root">sqrt</button></td>
+          </tr>
+          <tr>
+            <td><button id="clear">C</button></td>
+            <td><button id="zero">0</button></td>
+            <td><button id="decimal">.</button></td>
+            <td><button id="sign">+/-</button></td>
+            <td><button id="equals">=</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <script src="calculator.js"></script>
   </body>

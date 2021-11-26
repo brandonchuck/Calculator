@@ -71,6 +71,7 @@ function operandPressed(e) {
     alert("Please enter a number.");
   } else {
     if (num2 !== "") {
+      // e.target.classList.toggle("active"); // testing showing active operand
       let result = calculate(num1, num2, operand);
       num1 = result;
       operand = e.target.textContent;
@@ -79,6 +80,8 @@ function operandPressed(e) {
       console.log("num1 = " + num1);
       console.log("num2 = " + num2);
     } else {
+      // e.target.classList.toggle("active");
+      console.log("Class List: " + e.target.classList);
       operand = e.target.textContent;
     }
   }
@@ -119,7 +122,7 @@ function calculate(num_1, num_2, operand) {
     case "/":
       return num1 / num2;
     case "sqrt":
-      return Math.sqrt(num1).toFixed();
+      return Math.sqrt(num1).toFixed(4);
     case "1/x":
       return (1 / num1).toFixed(4);
   }

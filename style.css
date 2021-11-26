@@ -1,9 +1,9 @@
 body {
   display: flex;
-  flex-direction: row;
-  background-color: black;
-  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(73, 73, 73);
 }
+
 table {
   border-style: none;
   border-width: 0.1px;
@@ -32,16 +32,6 @@ td {
   transition: 0.3s;
 }
 
-.display {
-  background-color: lightgreen;
-  padding: 15px;
-  font-family: monospace;
-  font-size: large;
-  text-align: right;
-  font-size: 15pt;
-  /* border-radius: 5px; */
-}
-
 button {
   font-size: 16pt;
   font-weight: 600;
@@ -51,10 +41,32 @@ button {
   padding: 30px;
 }
 
-.toggle-on-off {
+.display {
+  background-color: lightgreen;
+  padding: 15px;
+  font-family: monospace;
+  font-size: large;
+  text-align: right;
+  font-size: 15pt;
+}
+
+.container-table {
+  display: flex;
+  justify-content: center;
+}
+
+.container-title {
+  display: flex;
+  justify-content: center;
+  font-size: 40pt;
+  font-family: monospace;
+  margin-bottom: 0px;
+}
+
+.active {
   background-color: red;
 }
 
 #title {
-  color: blue;
+  color: lightgreen;
 }
