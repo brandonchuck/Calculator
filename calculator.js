@@ -81,7 +81,6 @@ function operandPressed(e) {
       console.log("num2 = " + num2);
     } else {
       // e.target.classList.toggle("active");
-      console.log("Class List: " + e.target.classList);
       operand = e.target.textContent;
     }
   }
@@ -114,17 +113,17 @@ function calculate(num_1, num_2, operand) {
 
   switch (operand) {
     case "+":
-      return num1 + num2;
+      return (num1 + num2).toString();
     case "-":
-      return num1 - num2;
+      return (num1 - num2).toString();
     case "*":
-      return num1 * num2;
+      return (num1 * num2).toString();
     case "/":
-      return num1 / num2;
+      return (num1 / num2).toString();
     case "sqrt":
-      return Math.sqrt(num1).toFixed(4);
+      return Math.sqrt(num1).toFixed(4).toString();
     case "1/x":
-      return (1 / num1).toFixed(4);
+      return (1 / num1).toFixed(4).toString();
   }
 }
 
@@ -169,12 +168,10 @@ function memoryAddSubtract(e) {
     // cleaner way to write this logic?
     if (num1 !== "" && num2 === "") {
       result = calculate(memory, num1, op);
-      console.log("hi");
     }
 
     if (num2 !== "") {
       result = calculate(memory, num2, op);
-      console.log("there");
     }
 
     memory = result;
@@ -196,7 +193,7 @@ function memoryStore() {
     memory = num1;
     console.log("Current memory: " + memory);
   }
-  // if user has entered num1 and num2 and wants to store num2 in memory
+  // if user wants to store num2 in memory
   else if (num1 !== "" && num2 !== "") {
     memory = num2;
     console.log("Current memory: " + memory);
