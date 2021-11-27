@@ -103,7 +103,7 @@ function equalsPressed() {
 }
 
 function calculate(num_1, num_2, operand) {
-  if (num_1.includes(".") || num_2.includes(".")) {
+  if (num_1.toString().includes(".") || num_2.toString().includes(".")) {
     num1 = parseFloat(parseFloat(num_1).toFixed(4));
     num2 = parseFloat(parseFloat(num_2).toFixed(4));
   } else {
