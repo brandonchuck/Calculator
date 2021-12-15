@@ -1,4 +1,4 @@
-# Calculator App
+# Calculator Application
 
 # Overview
 
