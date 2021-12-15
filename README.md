@@ -7,7 +7,7 @@
 
 # Website
 
-- See it [here](https://brandonchuck.github.io/Project-5-CalculatorApp/) on Github Pages! 
+- See it [here](https://brandonchuck.github.io/Digital-Clock/) on Github Pages! 
 
 # Preview
 
