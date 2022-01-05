@@ -32,6 +32,10 @@ td {
   transition: 0.3s;
 }
 
+td:hover {
+  background-color: lightgreen;
+}
+
 button {
   font-size: 16pt;
   font-weight: 600;
@@ -39,6 +43,7 @@ button {
   color: black;
   background-color: transparent;
   padding: 30px;
+  cursor: pointer;
 }
 
 .display {
@@ -62,10 +67,6 @@ button {
   font-family: monospace;
   margin-bottom: 0px;
 }
-
-/* .active {
-  background-color: red;
-} */
 
 #title {
   color: lightgreen;
