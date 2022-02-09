@@ -11,7 +11,7 @@
 
 # Preview
 
-![expense-tracker-preview.png](expense-tracker-preview.png)
+![calculator-preview.png](calculator-preview.png)
 
 # Summary
 
